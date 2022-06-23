@@ -1,6 +1,6 @@
 # Grupo9-Proyecto
 
-# Nombre del proyecto: Guido's Pizza
+# Nombre del proyecto: UTEC's Pizza
 
 ## Integrantes del grupo:
 - Flavia Ailen Mañuico Quequejana - 202110207
