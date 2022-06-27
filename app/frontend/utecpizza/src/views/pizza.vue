@@ -3,6 +3,10 @@
     <meta charset="UTF-8" />
   </head>
   <body>
+    <div class="app">
+      <Navegacion />
+      <router-view />
+    </div>
     <div class="menu">
       <div class="pizzas">
         <img alt="Hawaiana" src="../assets/pizzas/Hawaiana.jpeg" />
@@ -80,6 +84,16 @@
     </div>
   </body>
 </template>
+
+<script>
+import Navegacion from "./views/Navegacion.vue";
+export default {
+  name: "App",
+  components: {
+    Navegacion,
+  },
+};
+</script>
 
 <style>
 .pizzas {

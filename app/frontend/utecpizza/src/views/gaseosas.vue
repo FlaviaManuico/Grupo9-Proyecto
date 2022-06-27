@@ -3,6 +3,10 @@
     <meta charset="UTF-8" />
   </head>
   <body>
+    <div class="app">
+      <Navegacion />
+      <router-view />
+    </div>
     <div class="menu">
       <div class="bebidas">
         <img alt="Fanta" src="../assets/bebidas/FantaPersonal.jpeg" />
@@ -58,6 +62,17 @@
     </div>
   </body>
 </template>
+
+<script>
+import Navegacion from "./views/Navegacion.vue";
+export default {
+  name: "App",
+  components: {
+    Navegacion,
+  },
+};
+</script>
+
 <style>
 * {
   padding: 0;

@@ -3,6 +3,10 @@
     <meta charset="UTF-8" />
   </head>
   <body>
+    <div class="app">
+      <Navegacion />
+      <router-view />
+    </div>
     <div class="carrito-container">
       <h1>Carrito de Compras</h1>
       <div class="pedidos">
@@ -42,6 +46,16 @@
     </div>
   </body>
 </template>
+
+<script>
+import Navegacion from "./views/Navegacion.vue";
+export default {
+  name: "App",
+  components: {
+    Navegacion,
+  },
+};
+</script>
 
 <style>
 .pedidos {
