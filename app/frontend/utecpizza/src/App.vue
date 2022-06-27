@@ -1,14 +1,19 @@
 <template>
-  <nav>
-    <router-link to="/">hola</router-link> |
-    <router-link to="/pizza">Pizza 🍕 </router-link> |
-    <router-link to="/entradas">Entradas 🥟 </router-link> |
-    <router-link to="/gaseosas">Gaseosas 🥤</router-link> |
-    <router-link to="/carrito">Carrito 🛒 </router-link> |
-    <router-link to="/logout">Log-out</router-link> |
-  </nav>
-  <router-view />
+  <div class="app">
+    <Navegacion />
+    <router-view />
+  </div>
 </template>
+
+<script>
+import Navegacion from "./components/Navegacion.vue";
+export default {
+  name: "App",
+  components: {
+    Navegacion,
+  },
+};
+</script>
 
 <style>
 #app {
