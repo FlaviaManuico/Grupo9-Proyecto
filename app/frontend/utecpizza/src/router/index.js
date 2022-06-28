@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import pizza from "../views/pizza.vue";
 import entradas from "../views/entradas.vue";
 import gaseosas from "../views/gaseosas.vue";
@@ -33,7 +33,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
