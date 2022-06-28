@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import Navegacion from "./views/Navegacion.vue";
+import Navegacion from "../views/Navegacion.vue";
 export default {
   name: "App",
   components: {
@@ -57,7 +57,72 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f3f3f3;
+  font-family: "Poppins", sans-serif;
+}
+
+.menu {
+  padding: 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-gap: 40px 40px;
+}
+
+.enlace {
+  background-color: #cb202d;
+  color: #ffffff;
+  /* margin-bottom: 30px; */
+  /* padding: 10px 0 10px 0; */
+  position: left;
+  text-align: left;
+}
+
+.heading li a {
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  padding: 15px;
+  display: block;
+  box-sizing: border-box;
+  border-right: 1px #e9ebee;
+}
+
+.heading li {
+  display: inline-block;
+  text-align: start;
+}
+
+.heading li a:hover {
+  background: #ef8354;
+}
+
+.heading {
+  background-color: #cb202d;
+  color: #ffffff;
+  margin-bottom: 30px;
+  padding: 10px 0 10px 0;
+  grid-column: 1/-1;
+  text-align: left;
+}
+.heading > h1 {
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 10px;
+  margin-bottom: 10px;
+}
+.heading > h3 {
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 5px;
+}
+
 .pedidos {
   display: grid;
   position: relative;
