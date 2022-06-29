@@ -1,64 +1,37 @@
 <template>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
   <body>
-    <section class="registro-form">
-      <input
-        class="controls"
-        type="text"
-        name="usuario"
-        id="usuario"
-        placeholder="Ingrese un nombre de usuario"
-      />
-      <input
-        class="controls"
-        type="password"
-        name="contrasena"
-        id="contrasena"
-        placeholder="Ingrese una contrasena"
-      />
-      <input
-        class="controls"
-        type="text"
-        name="nombre"
-        id="nombre"
-        placeholder="Ingrese su nombre"
-      />
-      <input
-        class="controls"
-        type="text"
-        name="apellido"
-        id="apellido"
-        placeholder="Ingrese su apellido"
-      />
-      <input
-        class="controls"
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Ingrese su correo"
-      />
-      <input
-        class="controls"
-        type="text"
-        name="direccion"
-        id="direccion"
-        placeholder="Ingrese su direccion"
-      />
-      <input
-        class="controls"
-        type="number"
-        name="telefono"
-        id="telefono"
-        placeholder="Ingrese su numero de telefono"
-      />
-      <input class="botons" type="submit" value="Registrar" />
-      <form id="irIngreso">
+    <div class="form-login">
+      <h5>Ingresar</h5>
+      <form id="ingresar" method="POST">
+        <input
+          class="controls"
+          type="text"
+          id="NombreDeUsuario"
+          name="NombreDeUsuario"
+          value=""
+          placeholder="Ingrese su usuario"
+        />
+        <input
+          class="controls"
+          type="password"
+          id="Contraseña"
+          name="Contraseña"
+          value=""
+          placeholder="Ingrese su contraseña"
+        />
+        <button class="button" type="submit">Ingresar</button>
+      </form>
+      <form id="irRegistro">
         <p>
-          <a href="/ingresar" id="Ingresar"
-            >¿Ya tienes una cuenta? Inicia Sesión</a
+          <a href="/registro" id="Registrarse"
+            >¿Aún no tienes una cuenta? Regístrate</a
           >
         </p>
       </form>
-    </section>
+    </div>
   </body>
 </template>
 
@@ -70,66 +43,68 @@
 }
 
 body {
-  background-color: #f3f3f3;
-  font-family: "Poppins", sans-serif;
+  background-color: #f6f7f8;
 }
 
-.registro-form {
-  width: 380px;
+.form-login {
+  width: 400px;
+  height: 310px;
   background: white;
-  padding: 30px;
   margin: auto;
-  margin-top: 100px;
-  border-radius: 20px;
-  border: 1px solid #dedede;
   font-family: "Poppins", sans-serif;
+  margin-top: 220px;
+  border: 1px solid #dedede;
+  border-radius: 20px;
+  padding: 20px 30px;
   color: #5a5b5d;
 }
 
-.registro-form h4 {
-  font-size: 20px;
-  margin-bottom: 18px;
+.form-login h5 {
+  margin: 0;
+  text-align: center;
+  height: 40px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid;
+  font-size: 25px;
+  color: #0c0c0c;
 }
 
 .controls {
   width: 100%;
+  border: 1px solid #b5c4d2;
+  margin-bottom: 15px;
+  padding: 11px 10px;
   background: white;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  border: 1px solid #a4a7aa;
-  font-family: "calibri";
-  font-size: 18px;
-  color: rgb(4, 3, 3);
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.registro-form p {
+.button {
+  width: 100%;
+  height: 40px;
+  background: #ff7f00;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 16px;
+  border-radius: 20px;
+}
+
+.form-login p {
   height: 40px;
   text-align: center;
   font-size: 18px;
   line-height: 40px;
 }
 
-.registro-form a {
+.form-login a {
   color: rgb(72, 69, 69);
   text-decoration: none;
   font-size: 14px;
 }
 
-.registro-form a:hover {
+.form-login a:hover {
   color: #ff7f00;
   text-decoration: underline;
-}
-
-.registro-form .botons {
-  width: 100%;
-  background: #ff7f00;
-  border-radius: 20px;
-  border: none;
-  padding: 12px;
-  color: white;
-  margin: 10px 0;
-  font-weight: bold;
-  font-size: 16px;
 }
 </style>
