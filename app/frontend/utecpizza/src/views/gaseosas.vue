@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import Navegacion from "./views/Navegacion.vue";
+import Navegacion from "../views/Navegacion.vue";
 export default {
   name: "App",
   components: {
@@ -73,7 +73,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   padding: 0;
   margin: 0;
