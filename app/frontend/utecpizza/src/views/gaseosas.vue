@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import Navegacion from "../views/Navegacion.vue";
+import Navegacion from "../components/Navegacion.vue";
 export default {
   name: "App",
   components: {
