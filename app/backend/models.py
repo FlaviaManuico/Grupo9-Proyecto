@@ -48,7 +48,7 @@ class usuario(db.Model):
             direccion,
             telefono):
         self.usuario = usuario
-        self.contrasena = contrasena#self.create_password(contrasena)
+        self.contrasena = self.create_password(contrasena)
         self.nombre = nombre
         self.apellido = apellido
         self.email = email
