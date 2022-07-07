@@ -14,7 +14,7 @@ def setup_db(app, database_path=database_path):
     db.init_app(app) #para inicializar la aplicación
     db.create_all() #metodo para verificar si existe o no
 
-class usuario(UserMixin,db.Model):
+class usuario(db.Model):
     __tablename__ = 'usuarios'
     id = db.Column(db.Integer, primary_key=True)
     usuario = db.Column(db.String(), nullable=False)
@@ -26,6 +26,18 @@ class usuario(UserMixin,db.Model):
     telefono = db.Column(db.Integer, nullable=False)
     pedidos = db.relationship('pedido', backref='user', lazy=True)
 
+    def format(self):
+        return{
+            'id': self.id,
+            'ususario': self.usuario,
+            'contrasena': self.contrasena,
+            'nombre': self.nombre,
+            'apellido':self.apellido,
+            'email':self.email,
+            'direccion':self.direccion,
+            'telefono':self.telefono
+        }
+
     def __init__(
             self,
             usuario,
@@ -36,7 +48,7 @@ class usuario(UserMixin,db.Model):
             direccion,
             telefono):
         self.usuario = usuario
-        self.contrasena = self.create_password(contrasena)
+        self.contrasena = contrasena#self.create_password(contrasena)
         self.nombre = nombre
         self.apellido = apellido
         self.email = email
@@ -51,6 +63,16 @@ class usuario(UserMixin,db.Model):
 
     def __repr__(self):
         return f'Usuario: id={self.id}, usuario={self.usuario}, contrasena={self.contrasena}, nombre={self.nombre}, apellido={self.apellido}, email={self.email}, direccion={self.direccion}, telefono={self.telefono}'
+
+    def insert(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+            return self.id
+        except:
+            db.session.rollback()
+        finally:
+            db.session.close()
 
 class producto(db.Model):
      __tablename__ = 'productos'
