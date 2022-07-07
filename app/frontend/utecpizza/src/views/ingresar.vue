@@ -56,6 +56,13 @@ export default {
       let data = await response.json();
       console.log("response: ", response);
       console.log("data: ", data);
+      if (data["success"]) {
+        this.$router.push({
+          name: "Pizza",
+        });
+      } else {
+        console.log("auth failed");
+      }
     },
   },
 };
