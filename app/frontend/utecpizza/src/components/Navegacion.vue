@@ -2,7 +2,9 @@
   <header class="barranav">
     <nav>
       <div class="logo">
-        <router-link to="/"><img src="@/assets/logo.png" alt="" /></router-link>
+        <router-link to="/pizza"
+          ><img src="@/assets/logo.png" alt=""
+        /></router-link>
       </div>
       <ul class="navigation">
         <li><router-link class="link" to="/">Pizza 🍕 </router-link></li>
