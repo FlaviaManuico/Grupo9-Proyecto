@@ -45,7 +45,7 @@
       />
       <button class="botons" type="submit">Registrar</button>
       <p>
-        <router-link class="irIngresar" to="/ingresar">
+        <router-link class="irIngresar" to="/">
           ¿Ya tienes una cuenta? Inicia Sesión
         </router-link>
       </p>
