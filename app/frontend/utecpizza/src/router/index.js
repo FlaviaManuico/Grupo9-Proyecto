@@ -2,6 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
+    path: "/registro",
+    name: "Registrar",
+    component: () =>
+      import(/* webpackChunkName: "ingresar" */ "../views/registro.vue"),
+  },
+  {
     path: "/ingresar",
     name: "Ingresar",
     component: () =>
