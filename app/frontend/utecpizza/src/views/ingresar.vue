@@ -5,21 +5,17 @@
   <body>
     <div class="form-login">
       <h5>Ingresar</h5>
-      <form id="ingresar" method="POST">
+      <form @submit.prevent="login">
         <input
+          v-model="username"
           class="controls"
           type="text"
-          id="NombreDeUsuario"
-          name="NombreDeUsuario"
-          value=""
           placeholder="Ingrese su usuario"
         />
         <input
+          v-model="password"
           class="controls"
           type="password"
-          id="Contraseña"
-          name="Contraseña"
-          value=""
           placeholder="Ingrese su contraseña"
         />
         <button class="button" type="submit">Ingresar</button>
@@ -34,6 +30,36 @@
     </div>
   </body>
 </template>
+
+<script>
+export default {
+  name: "Ingresar",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    async login() {
+      const path = "http://127.0.0.1:5000/login";
+      const response = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      console.log("response: ", response);
+      console.log("data: ", data);
+    },
+  },
+};
+</script>
 
 <style>
 * {
@@ -108,3 +134,4 @@ body {
   text-decoration: underline;
 }
 </style>
+
