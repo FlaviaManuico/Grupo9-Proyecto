@@ -100,17 +100,19 @@ def create_app(test_config=None):
         username = request.get_json()['username']
         password = request.get_json()['password']
         
-        user = usuario.query.filter(usuario.usuario == username).filter(usuario.contrasena == password).first()
-
+        user = usuario.query.filter(usuario.usuario == username).first()
         if user is None:
             abort(403)
         else:
-            return jsonify({
-                'success': True,
-                'profile': {
-                    'usuario': username
-                }
-            })
+            if user.verify_password(password):
+                return jsonify({
+                    'success': True,
+                    'profile': {
+                        'usuario': username
+                    }
+                })
+            else:
+                abort(403)
     
     @app.route('/users', methods=['GET'])
     def get_users():
