@@ -8,7 +8,7 @@ from flask import (
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager,UserMixin, current_user, login_user, logout_user, login_required
 from flask_cors import CORS, cross_origin
-from models import setup_db, usuario, producto, pedido, detallesPedido
+from models import setup_db, Usuario, Producto, Pedido, DetallesPedido
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -24,45 +24,45 @@ def create_app(test_config=None):
     # PRODUCTOS
 
     # Entradas
-    pAjo2 = producto(comida='Pan al Ajo (x2)', precio=4.00)
-    pAjo4 = producto(comida='Pan al Ajo (x4)', precio=8.00)
-    pQueso2 = producto(comida='Palitos de Queso (x2)', precio=5.50)
-    pQueso4 = producto(comida='Palitos de Queso (x4)', precio=11.00)
+    pAjo2 = Producto(comida='Pan al Ajo (x2)', precio=4.00)
+    pAjo4 = Producto(comida='Pan al Ajo (x4)', precio=8.00)
+    pQueso2 = Producto(comida='Palitos de Queso (x2)', precio=5.50)
+    pQueso4 = Producto(comida='Palitos de Queso (x4)', precio=11.00)
 
     # Pizzas
-    PHf = producto(comida='Pizza Hawaiana Familiar', precio=32.90)
-    PHg = producto(comida='Pizza Hawaiana Grande', precio=22.90)
-    PHm = producto(comida='Pizza Hawaiana Mediana', precio=16.90)
-    PHp = producto(comida='Pizza Hawaiana Personal', precio=10.00)
-    PAf = producto(comida='Pizza Americana Familiar', precio=29.90)
-    PAg = producto(comida='Pizza Americana Grande', precio=19.90)
-    PAm = producto(comida='Pizza Americana Mediana', precio=13.90)
-    PAp = producto(comida='Pizza Americana Personal', precio=7.00)
-    PPf = producto(comida='Pizza de Pepperoni Familiar', precio=30.90)
-    PPg = producto(comida='Pizza de Pepperoni Grande', precio=20.90)
-    PPm = producto(comida='Pizza de Pepperoni Mediana', precio=14.90)
-    PPp = producto(comida='Pizza de Pepperoni Personal', precio=8.00)
-    PMf = producto(comida='Pizza Mozarella Familiar', precio=31.90)
-    PMg = producto(comida='Pizza Mozarella Grande', precio=21.90)
-    PMm = producto(comida='Pizza Mozarella Mediana', precio=15.90)
-    PMp = producto(comida='Pizza Mozarella Personal', precio=9.00)
+    PHf = Producto(comida='Pizza Hawaiana Familiar', precio=32.90)
+    PHg = Producto(comida='Pizza Hawaiana Grande', precio=22.90)
+    PHm = Producto(comida='Pizza Hawaiana Mediana', precio=16.90)
+    PHp = Producto(comida='Pizza Hawaiana Personal', precio=10.00)
+    PAf = Producto(comida='Pizza Americana Familiar', precio=29.90)
+    PAg = Producto(comida='Pizza Americana Grande', precio=19.90)
+    PAm = Producto(comida='Pizza Americana Mediana', precio=13.90)
+    PAp = Producto(comida='Pizza Americana Personal', precio=7.00)
+    PPf = Producto(comida='Pizza de Pepperoni Familiar', precio=30.90)
+    PPg = Producto(comida='Pizza de Pepperoni Grande', precio=20.90)
+    PPm = Producto(comida='Pizza de Pepperoni Mediana', precio=14.90)
+    PPp = Producto(comida='Pizza de Pepperoni Personal', precio=8.00)
+    PMf = Producto(comida='Pizza Mozarella Familiar', precio=31.90)
+    PMg = Producto(comida='Pizza Mozarella Grande', precio=21.90)
+    PMm = Producto(comida='Pizza Mozarella Mediana', precio=15.90)
+    PMp = Producto(comida='Pizza Mozarella Personal', precio=9.00)
 
     # Lasagnas
-    lVegetariana = producto(comida='Lasagna Vegetariana', precio=22.90)
-    lCarne = producto(comida='Lasagna de Carne', precio=20.90)
-    lHawaiana = producto(comida='Lasagna Hawaiana', precio=22.90)
-    lQueso = producto(comida='Lasagna de 4 Quesos', precio=24.90)
-    lChamp = producto(comida='Lasagna de Champiñones', precio=25.90)
+    lVegetariana = Producto(comida='Lasagna Vegetariana', precio=22.90)
+    lCarne = Producto(comida='Lasagna de Carne', precio=20.90)
+    lHawaiana = Producto(comida='Lasagna Hawaiana', precio=22.90)
+    lQueso = Producto(comida='Lasagna de 4 Quesos', precio=24.90)
+    lChamp = Producto(comida='Lasagna de Champiñones', precio=25.90)
 
     # Bebidas
-    CPersonal = producto(comida='Coca Cola Personal', precio=2.50)
-    InP = producto(comida='Inca Kola Personal', precio=2.50)
-    FaP = producto(comida='Fanta Personal', precio=3.20)
-    SpP = producto(comida='Sprite Personal', precio=3.20)
+    CPersonal = Producto(comida='Coca Cola Personal', precio=2.50)
+    InP = Producto(comida='Inca Kola Personal', precio=2.50)
+    FaP = Producto(comida='Fanta Personal', precio=3.20)
+    SpP = Producto(comida='Sprite Personal', precio=3.20)
 
     db = SQLAlchemy(app)
 
-    if len(producto.query.all()) == 0:
+    if len(Producto.query.all()) == 0:
         db.session.add_all([pAjo2,
                         pAjo4,
                         pQueso2,
@@ -100,7 +100,7 @@ def create_app(test_config=None):
         username = request.get_json()['username']
         password = request.get_json()['password']
         
-        user = usuario.query.filter(usuario.usuario == username).first()
+        user = Usuario.query.filter(Usuario.usuario == username).first()
         if user is None:
             abort(403)
         else:
@@ -116,7 +116,7 @@ def create_app(test_config=None):
     
     @app.route('/users', methods=['GET'])
     def get_users():
-        selection= usuario.query.order_by('id').all()
+        selection= Usuario.query.order_by('id').all()
         usuarios= [user.format() for user in selection]
 
         if len(selection)==0:
@@ -144,9 +144,9 @@ def create_app(test_config=None):
         if nombre is '':
             abort(422)
         
-        user = usuario(usuario=username,contrasena=password,nombre=nombre,apellido=apellido,email=email,direccion=direccion,telefono=telefono)
+        user = Usuario(usuario=username,contrasena=password,nombre=nombre,apellido=apellido,email=email,direccion=direccion,telefono=telefono)
         new_user_id= user.insert()
-        selection= usuario.query.order_by('id').all()
+        selection= Usuario.query.order_by('id').all()
         current_users= [user.format() for user in selection]
 
         return jsonify({
