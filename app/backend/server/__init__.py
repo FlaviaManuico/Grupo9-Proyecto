@@ -152,8 +152,8 @@ def create_app(test_config=None):
         return jsonify({
             'success':True,
             'created':new_user_id,
-            'peliculas': current_users,
-            'total_peliculas': len(selection)
+            'usuarios': current_users,
+            'total_usuarios': len(selection)
         })
 
 

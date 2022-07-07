@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager,UserMixin, current_user, login_user, logout_user, login_required
 
 database_name='pizza'
-database_path='postgresql://{}:@{}/{}'.format('postgres', 'localhost:5432', database_name)
+database_path='postgresql://{}:123@{}/{}'.format('postgres', 'localhost:5432', database_name)
 db = SQLAlchemy()
 
 def setup_db(app, database_path=database_path):
