@@ -44,12 +44,10 @@
         placeholder="Ingrese su numero de telefono"
       />
       <button class="botons" type="submit">Registrar</button>
-    </form>
-    <form id="irIngreso">
       <p>
-        <a href="/ingresar" id="Ingresar"
-          >¿Ya tienes una cuenta? Inicia Sesión</a
-        >
+        <router-link class="irIngresar" to="/ingresar">
+          ¿Ya tienes una cuenta? Inicia Sesión
+        </router-link>
       </p>
     </form>
   </body>
