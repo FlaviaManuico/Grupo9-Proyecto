@@ -39,9 +39,9 @@ const routes = [
   },
   {
     path: "/",
-    name: "Pizza",
+    name: "Ingresar",
     component: () =>
-      import(/* webpackChunkName: "pizza" */ "../views/pizza.vue"),
+      import(/* webpackChunkName: "pizza" */ "../views/ingresar.vue"),
   },
 ];
 
