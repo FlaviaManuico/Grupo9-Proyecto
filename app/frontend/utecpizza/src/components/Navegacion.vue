@@ -2,10 +2,12 @@
   <header class="barranav">
     <nav>
       <div class="logo">
-        <router-link to="/"><img src="@/assets/logo.png" alt="" /></router-link>
+        <router-link to="/pizza"
+          ><img src="@/assets/logo.png" alt=""
+        /></router-link>
       </div>
       <ul class="navigation">
-        <li><router-link class="link" to="/">Pizza 🍕 </router-link></li>
+        <li><router-link class="link" to="/pizza">Pizza 🍕 </router-link></li>
         <li>
           <router-link class="link" to="/entradas">Entradas 🥟 </router-link>
         </li>
@@ -13,9 +15,9 @@
           <router-link class="link" to="/gaseosas">Bebidas 🥤</router-link>
         </li>
         <li>
-          <router-link class="link" to="/carrito">Carrito 🛒 </router-link>
+          <router-link class="link" to="/pedidos">Carrito 🛒 </router-link>
         </li>
-        <li><router-link class="link" to="/ingresar">Log-out</router-link></li>
+        <li><router-link class="link" to="/">Log-out</router-link></li>
       </ul>
     </nav>
   </header>
