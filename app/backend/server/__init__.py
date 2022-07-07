@@ -13,7 +13,7 @@ from models import setup_db, usuario, producto, pedido, detallesPedido
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
-    CORS(app, origins =['http://127.0.0.1:5000', 'http://localhost:8080'])
+    CORS(app, origins =['http://127.0.0.1:5000', 'http://localhost:8080'], max_age=10)
 
     @app.after_request
     def after_resquest(response):
@@ -47,7 +47,13 @@ def create_app(test_config=None):
     PMm = producto(comida='Pizza Mozarella Mediana', precio=15.90)
     PMp = producto(comida='Pizza Mozarella Personal', precio=9.00)
 
-    
+    # Lasagnas
+    lVegetariana = producto(comida='Lasagna Vegetariana', precio=22.90)
+    lCarne = producto(comida='Lasagna de Carne', precio=20.90)
+    lHawaiana = producto(comida='Lasagna Hawaiana', precio=22.90)
+    lQueso = producto(comida='Lasagna de 4 Quesos', precio=24.90)
+    lChamp = producto(comida='Lasagna de Champiñones', precio=25.90)
+
     # Bebidas
     CPersonal = producto(comida='Coca Cola Personal', precio=2.50)
     InP = producto(comida='Inca Kola Personal', precio=2.50)
@@ -77,10 +83,108 @@ def create_app(test_config=None):
                         PMg,
                         PMm,
                         PMp,
+                        lVegetariana,
+                        lCarne,
+                        lHawaiana,
+                        lQueso,
+                        lChamp,
                         CPersonal,
                         InP,
                         FaP,
                         SpP])
         db.session.commit()
+    
+    @app.route('/login', methods = ['POST'])
+    def login():
+        #body=request.get_json()
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+        
+        user = usuario.query.filter(usuario.usuario == username).filter(usuario.contrasena == password).first()
+
+        if user is None:
+            abort(403)
+        else:
+            return jsonify({
+                'success': True,
+                'profile': {
+                    'usuario': username
+                }
+            })
+    
+    @app.route('/users', methods=['GET'])
+    def get_users():
+        selection= usuario.query.order_by('id').all()
+        usuarios= [user.format() for user in selection]
+
+        if len(selection)==0:
+            abort(404)
+
+        return jsonify({
+            'success':True,
+            'usuarios': usuarios,
+            'total_usuarios':len(selection)
+        })
+
+    @app.route('/users', methods = ['POST'])
+    def insert_users():
+
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+        nombre = request.get_json()['name'] 
+        apellido = request.get_json()['lastname']       
+        email = request.get_json()['email']
+        direccion = request.get_json()['adress']
+        telefono = request.get_json()['phone']
+
+        print(nombre)
+
+        if nombre is '':
+            abort(422)
+        
+        user = usuario(usuario=username,contrasena=password,nombre=nombre,apellido=apellido,email=email,direccion=direccion,telefono=telefono)
+        new_user_id= user.insert()
+        selection= usuario.query.order_by('id').all()
+        current_users= [user.format() for user in selection]
+
+        return jsonify({
+            'success':True,
+            'created':new_user_id,
+            'peliculas': current_users,
+            'total_peliculas': len(selection)
+        })
+
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            'success':False,
+            'code':404,
+            'message':'resource not found'
+        }),404
+
+    @app.errorhandler(403)
+    def forbidden(error):
+        return jsonify({
+            'success':False,
+            'code':403,
+            'message':'Forbidden'
+        }),403
+    
+    @app.errorhandler(500)
+    def server_error(error):
+        return jsonify({
+            'success':False,
+            'code':500,
+            'message':'Internal Server Error'
+        }),500
+    
+    @app.errorhandler(422)
+    def not_found_resource(error):
+        return jsonify({
+            'success':False,
+            'code':422,
+            'message':'resource not found'
+        }),422
 
     return app
