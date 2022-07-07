@@ -14,7 +14,7 @@ def setup_db(app, database_path=database_path):
     db.init_app(app) #para inicializar la aplicación
     db.create_all() #metodo para verificar si existe o no
 
-class usuario(db.Model):
+class Usuario(db.Model):
     __tablename__ = 'usuarios'
     id = db.Column(db.Integer, primary_key=True)
     usuario = db.Column(db.String(), nullable=False)
@@ -24,7 +24,7 @@ class usuario(db.Model):
     email = db.Column(db.String(), nullable=False)
     direccion = db.Column(db.String(), nullable=False)
     telefono = db.Column(db.Integer, nullable=False)
-    pedidos = db.relationship('pedido', backref='user', lazy=True)
+    pedidos = db.relationship('Pedido', backref='user', lazy=True)
 
     def format(self):
         return{
@@ -74,27 +74,27 @@ class usuario(db.Model):
         finally:
             db.session.close()
 
-class producto(db.Model):
+class Producto(db.Model):
      __tablename__ = 'productos'
      id = db.Column(db.Integer, primary_key=True)
      comida = db.Column(db.String(), nullable=False)
      precio = db.Column(db.Float(), nullable=False)
-     detalles = db.relationship('detallesPedido', backref='detalles0', lazy=True)
+     detalles = db.relationship('DetallesPedido', backref='detalles0', lazy=True)
 
      def __repr__(self):
         return f'Producto: id={self.id} comida={self.comida}, precio={self.precio}'
 
-class pedido(db.Model):
+class Pedido(db.Model):
      __tablename__ = 'pedidos'
      id = db.Column(db.Integer(), primary_key=True)
      user_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
      fechaPedido = db.Column(db.DateTime, default=datetime.now())
-     detalle = db.relationship('detallesPedido', backref='detalles', lazy=True)
+     detalle = db.relationship('DetallesPedido', backref='detalles', lazy=True)
 
      def __repr__(self):
          return f'Pedido: id={self.id} fechaPedido={self.fechaPedido}'
 
-class detallesPedido(db.Model):
+class DetallesPedido(db.Model):
     __tablename__ = 'detalles_pedidos'
     id = db.Column(db.Integer, primary_key=True)
     pedido_id = db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=False)
