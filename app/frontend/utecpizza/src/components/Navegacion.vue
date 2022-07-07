@@ -7,7 +7,7 @@
         /></router-link>
       </div>
       <ul class="navigation">
-        <li><router-link class="link" to="/">Pizza 🍕 </router-link></li>
+        <li><router-link class="link" to="/pizza">Pizza 🍕 </router-link></li>
         <li>
           <router-link class="link" to="/entradas">Entradas 🥟 </router-link>
         </li>
