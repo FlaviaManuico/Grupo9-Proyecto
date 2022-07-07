@@ -1,66 +1,99 @@
 <template>
   <body>
-    <section class="registro-form">
+    <form @submit.prevent="singup" class="registro-form">
       <input
+        v-model="username"
         class="controls"
         type="text"
-        name="usuario"
-        id="usuario"
         placeholder="Ingrese un nombre de usuario"
       />
       <input
+        v-model="password"
         class="controls"
         type="password"
-        name="contrasena"
-        id="contrasena"
         placeholder="Ingrese una contrasena"
       />
       <input
+        v-model="name"
         class="controls"
         type="text"
-        name="nombre"
-        id="nombre"
         placeholder="Ingrese su nombre"
       />
       <input
+        v-model="lastname"
         class="controls"
         type="text"
-        name="apellido"
-        id="apellido"
         placeholder="Ingrese su apellido"
       />
       <input
+        v-model="email"
         class="controls"
         type="email"
-        name="email"
-        id="email"
         placeholder="Ingrese su correo"
       />
       <input
+        v-model="adress"
         class="controls"
         type="text"
-        name="direccion"
-        id="direccion"
         placeholder="Ingrese su direccion"
       />
       <input
+        v-model="phone"
         class="controls"
         type="number"
-        name="telefono"
-        id="telefono"
         placeholder="Ingrese su numero de telefono"
       />
-      <botons class="botons" type="submit">"Registrar"</botons>
-      <form id="irIngreso">
-        <p>
-          <a href="/ingresar" id="Ingresar"
-            >¿Ya tienes una cuenta? Inicia Sesión</a
-          >
-        </p>
-      </form>
-    </section>
+      <button class="botons" type="submit">Registrar</button>
+    </form>
+    <form id="irIngreso">
+      <p>
+        <a href="/ingresar" id="Ingresar"
+          >¿Ya tienes una cuenta? Inicia Sesión</a
+        >
+      </p>
+    </form>
   </body>
 </template>
+
+<script>
+export default {
+  name: "Registrar",
+  data() {
+    return {
+      username: "",
+      password: "",
+      name: "",
+      lastname: "",
+      email: "",
+      adress: "",
+      phone: "",
+    };
+  },
+  methods: {
+    async singup() {
+      const path = "http://127.0.0.1:5000/users";
+      const response = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password,
+          name: this.name,
+          lastname: this.lastname,
+          email: this.email,
+          adress: this.adress,
+          phone: this.phone,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      console.log("response: ", response);
+      console.log("data: ", data);
+    },
+  },
+};
+</script>
 
 <style>
 * {
@@ -128,7 +161,7 @@ body {
   border: none;
   padding: 12px;
   color: white;
-  margin: 10px 0;
+  margin: 100px;
   font-weight: bold;
   font-size: 16px;
 }
