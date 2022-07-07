@@ -123,7 +123,16 @@ body {
   font-size: 20px;
   margin-bottom: 18px;
 }
-
+.a {
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+  padding: 12px;
+  color: white;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 16px;
+}
 .controls {
   width: 100%;
   background: white;
@@ -161,7 +170,7 @@ body {
   border: none;
   padding: 12px;
   color: white;
-  margin: 100px;
+  margin: 10px 0;
   font-weight: bold;
   font-size: 16px;
 }
