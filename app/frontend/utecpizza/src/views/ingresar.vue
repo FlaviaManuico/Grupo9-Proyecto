@@ -6,6 +6,9 @@
     <div class="form-login">
       <h5>Ingresar</h5>
       <form @submit.prevent="login">
+        <div v-if="error" class="mensaje_error" role="alert">
+          {{ error }}
+        </div>
         <input
           v-model="username"
           class="controls"
@@ -38,6 +41,7 @@ export default {
     return {
       username: "",
       password: "",
+      error: "",
     };
   },
   methods: {
@@ -61,7 +65,7 @@ export default {
           name: "Pizza",
         });
       } else {
-        console.log("auth failed");
+        this.error = "Usuario o contraseña incorrecta";
       }
     },
   },
@@ -140,4 +144,7 @@ body {
   color: #ff7f00;
   text-decoration: underline;
 }
+/* .mensaje_error{
+
+} */
 </style>
