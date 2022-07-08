@@ -85,7 +85,7 @@ body {
 
 .form-login {
   width: 400px;
-  height: 310px;
+  /* height: 310px; */
   background: white;
   margin: auto;
   font-family: "Poppins", sans-serif;
@@ -100,7 +100,7 @@ body {
   margin: 0;
   text-align: center;
   height: 40px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border-bottom: 1px solid;
   font-size: 25px;
   color: #0c0c0c;
@@ -123,7 +123,6 @@ body {
   border: none;
   color: white;
   font-size: 16px;
-  margin-bottom: 16px;
   border-radius: 20px;
 }
 
@@ -138,13 +137,34 @@ body {
   color: rgb(72, 69, 69);
   text-decoration: none;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .form-login a:hover {
   color: #ff7f00;
   text-decoration: underline;
 }
-/* .mensaje_error{
 
-} */
+.mensaje_error {
+  width: 200px;
+  height: 30px;
+  display: inline-block;
+  background: #ffd5d5;
+  /* border: none; */
+  color: rgb(233, 26, 26);
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.mensaje_error p {
+  text-align: center;
+  background: #ffd5d5;
+  color: rgb(233, 26, 26);
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-radius: 3px;
+}
 </style>
