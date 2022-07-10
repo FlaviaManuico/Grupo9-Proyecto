@@ -15,16 +15,30 @@
           <router-link class="link" to="/gaseosas">Bebidas 🥤</router-link>
         </li>
         <li>
-          <router-link class="link" to="/pedidos">Carrito 🛒 </router-link>
+          <router-link class="link" to="/pedidos">Pedidos 🛒 </router-link>
         </li>
-        <li><router-link class="link" to="/">Log-out</router-link></li>
+        <li>
+          <router-link v-on:click="logout" class="link" to="/"
+            >Log-out</router-link
+          >
+        </li>
       </ul>
     </nav>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Navegacion",
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push({
+        name: "Ingresar",
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
