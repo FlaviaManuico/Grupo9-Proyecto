@@ -157,11 +157,6 @@ body {
   width: 200px;
   height: 30px;
   display: inline-block;
-  background: #ffd5d5;
-  /* border: none; */
-  color: rgb(233, 26, 26);
-  font-size: 12px;
-  font-weight: bold;
   margin-bottom: 20px;
   border-radius: 3px;
 }
