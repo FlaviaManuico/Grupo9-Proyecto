@@ -183,4 +183,27 @@ body {
   font-weight: bold;
   font-size: 16px;
 }
+
+.mensaje_error {
+  width: 200px;
+  height: 30px;
+  display: inline-block;
+  background: #ffd5d5;
+  /* border: none; */
+  color: rgb(233, 26, 26);
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.mensaje_error p {
+  text-align: center;
+  background: #ffd5d5;
+  color: rgb(233, 26, 26);
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-radius: 3px;
+}
 </style>
