@@ -112,6 +112,8 @@ def create_app(test_config=None):
         direccion = request.get_json()['adress']
         telefono = request.get_json()['phone']
 
+        print(nombre)
+
         if nombre is '':
             abort(403)
         else:
