@@ -187,7 +187,7 @@ body {
 .mensaje_error {
   width: 200px;
   height: 30px;
-  display: inline-block;
+  margin-left: 65px;
   margin-bottom: 20px;
   border-radius: 3px;
 }
