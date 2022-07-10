@@ -101,24 +101,9 @@ def create_app(test_config=None):
                 })
             else:
                 abort(403)
-    
-    @app.route('/users', methods=['GET'])
-    def get_users():
-        selection= Usuario.query.order_by('id').all()
-        usuarios= [user.format() for user in selection]
 
-        if len(selection)==0:
-            abort(404)
-
-        return jsonify({
-            'success':True,
-            'usuarios': usuarios,
-            'total_usuarios':len(selection)
-        })
-
-    @app.route('/users', methods = ['POST'])
+    @app.route('/users', methods = ['POST']) #registro de usuario - POST
     def insert_users():
-
         username = request.get_json()['username']
         password = request.get_json()['password']
         nombre = request.get_json()['name'] 
@@ -127,23 +112,27 @@ def create_app(test_config=None):
         direccion = request.get_json()['adress']
         telefono = request.get_json()['phone']
 
-        print(nombre)
-
         if nombre is '':
-            abort(422)
-        
-        user = Usuario(usuario=username,contrasena=password,nombre=nombre,apellido=apellido,email=email,direccion=direccion,telefono=telefono)
-        new_user_id= user.insert()
-        selection= Usuario.query.order_by('id').all()
-        current_users= [user.format() for user in selection]
+            abort(403)
+        else:
+            user_base = Usuario.query.filter_by(usuario=username).first()
+            email_base = Usuario.query.filter_by(email=email).first()
 
-        return jsonify({
-            'success':True,
-            'created':new_user_id,
-            'usuarios': current_users,
-            'total_usuarios': len(selection)
-        })
+            if user_base is None and email_base is None:
+                user = Usuario(usuario=username,contrasena=password,nombre=nombre,apellido=apellido,email=email,direccion=direccion,telefono=telefono)
+                new_user_id= user.insert()
+                selection= Usuario.query.order_by('id').all()
+                current_users= [user.format() for user in selection]
 
+                return jsonify({
+                    'success':True,
+                    'created':new_user_id,
+                    'usuarios': current_users,
+                    'total_usuarios': len(selection)
+                })
+            else: 
+                if user_base.username == username or email_base.email == email:
+                    abort(403)
 
     @app.errorhandler(404)
     def not_found(error):
