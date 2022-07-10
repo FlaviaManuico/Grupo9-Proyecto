@@ -7,7 +7,7 @@
       <h5>Ingresar</h5>
       <form @submit.prevent="login">
         <div v-if="error" class="mensaje_error" role="alert">
-          {{ error }}
+          <p>{{ error }}</p>
         </div>
         <input
           v-model="username"
@@ -23,7 +23,7 @@
         />
         <button class="button" type="submit">Ingresar</button>
       </form>
-      <form id="irRegistro">
+      <form id="irRegistro" class="link">
         <p>
           <a href="/registro" id="Registrarse"
             >¿Aún no tienes una cuenta? Regístrate</a
@@ -61,6 +61,7 @@ export default {
       console.log("response: ", response);
       console.log("data: ", data);
       if (data["success"]) {
+        localStorage.setItem("user-info", JSON.stringify(data));
         this.$router.push({
           name: "Pizza",
         });
@@ -68,6 +69,14 @@ export default {
         this.error = "Usuario o contraseña incorrecta";
       }
     },
+  },
+  mounted() {
+    let u = localStorage.getItem("user-info");
+    if (u) {
+      this.$router.push({
+        name: "Pizza",
+      });
+    }
   },
 };
 </script>
@@ -144,7 +153,6 @@ body {
   color: #ff7f00;
   text-decoration: underline;
 }
-
 .mensaje_error {
   width: 200px;
   height: 30px;
@@ -157,7 +165,6 @@ body {
   margin-bottom: 20px;
   border-radius: 3px;
 }
-
 .mensaje_error p {
   text-align: center;
   background: #ffd5d5;
