@@ -1,6 +1,9 @@
 <template>
   <body>
     <form @submit.prevent="singup" class="registro-form">
+      <div v-if="error" class="mensaje_error" role="alert">
+        <p>{{ error }}</p>
+      </div>
       <input
         v-model="username"
         class="controls"
@@ -65,6 +68,7 @@ export default {
       email: "",
       adress: "",
       phone: "",
+      error: "",
     };
   },
   methods: {
@@ -88,6 +92,13 @@ export default {
       let data = await response.json();
       console.log("response: ", response);
       console.log("data: ", data);
+      if (data["success"]) {
+        this.$router.push({
+          name: "Ingresar",
+        });
+      } else {
+        this.error = "Usuario y/o email ya está en uso.";
+      }
     },
   },
 };
