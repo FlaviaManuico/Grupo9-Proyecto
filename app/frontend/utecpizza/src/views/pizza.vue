@@ -15,14 +15,16 @@
             <h5>Pizza Hawaiana</h5>
             <h5 class="price">Desde S/ 10.00</h5>
           </div>
-          <select class="opt" name="seleccion1">
-            <option value="5" selected>Familiar (+ S/ 22.90)</option>
-            <option value="6">Grande (+ S/ 12.90)</option>
-            <option value="7">Mediana (+ S/ 6.90)</option>
-            <option value="8">Personal</option>
+          <select v-model="selected1" class="opt" name="seleccion1">
+            <option :value="5">Familiar (+ S/ 22.90)</option>
+            <option :value="6">Grande (+ S/ 12.90)</option>
+            <option :value="7">Mediana (+ S/ 6.90)</option>
+            <option :value="8">Personal</option>
           </select>
           <div class="boton">
-            <button class="selec">Añadir al Carrito</button>
+            <button v-on:click="postDetail(selected1)" class="selec">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -34,14 +36,16 @@
             <h5>Pizza Americana</h5>
             <h5 class="price">Desde S/ 7.00</h5>
           </div>
-          <select class="opt" name="seleccion2">
-            <option value="9" selected>Familiar (+ 22.90)</option>
-            <option value="10">Grande (+ 12.90)</option>
-            <option value="11">Mediana (+ S/ 6.90)</option>
-            <option value="12">Personal</option>
+          <select v-model="selected2" class="opt" name="seleccion2">
+            <option :value="9">Familiar (+ 22.90)</option>
+            <option :value="10">Grande (+ 12.90)</option>
+            <option :value="11">Mediana (+ S/ 6.90)</option>
+            <option :value="12">Personal</option>
           </select>
           <div class="boton">
-            <button class="selec">Añadir al Carrito</button>
+            <button v-on:click="postDetail(selected2)" class="selec">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -52,14 +56,16 @@
             <h5>Pizza de Pepperoni</h5>
             <h5 class="price">Desde S/ 8.00</h5>
           </div>
-          <select class="opt" name="seleccion3">
-            <option value="13" selected>Familiar (+ S/ 22.90)</option>
-            <option value="14">Grande (+ S/ 12.90)</option>
-            <option value="15">Mediana (+ S/6.90)</option>
-            <option value="16">Personal</option>
+          <select v-model="selected3" class="opt" name="seleccion3">
+            <option :value="13">Familiar (+ S/ 22.90)</option>
+            <option :value="14">Grande (+ S/ 12.90)</option>
+            <option :value="15">Mediana (+ S/6.90)</option>
+            <option :value="16">Personal</option>
           </select>
           <div class="boton">
-            <button class="selec">Añadir al Carrito</button>
+            <button v-on:click="postDetail(selected3)" class="selec">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -70,14 +76,16 @@
             <h5>Pizza Mozzarella</h5>
             <h5 class="price">Desde S/ 9.00</h5>
           </div>
-          <select class="opt" name="seleccion4">
-            <option value="17" selected>Familiar (+ S/ 22.90)</option>
-            <option value="18">Grande (+ S/ 12.90)</option>
-            <option value="19">Mediana (+ S/ 6.90)</option>
-            <option value="20">Personal</option>
+          <select v-model="selected4" class="opt" name="seleccion4">
+            <option :value="17">Familiar (+ S/ 22.90)</option>
+            <option :value="18">Grande (+ S/ 12.90)</option>
+            <option :value="19">Mediana (+ S/ 6.90)</option>
+            <option :value="20">Personal</option>
           </select>
           <div class="boton">
-            <button class="selec">Añadir al Carrito</button>
+            <button v-on:click="postDetail(selected4)" class="selec">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -88,9 +96,46 @@
 <script>
 import Navegacion from "../components/Navegacion.vue";
 export default {
-  name: "App",
+  name: "Pizza",
+  data() {
+    return {
+      selected1: "",
+      selected2: "",
+      selected3: "",
+      selected4: "",
+      pedido_id: JSON.parse(localStorage.getItem("user-info"))["pedido_id"],
+    };
+  },
   components: {
     Navegacion,
+  },
+  mounted() {
+    let u = localStorage.getItem("user-info");
+    if (!u) {
+      this.$router.push({
+        name: "Ingresar",
+      });
+    }
+  },
+  methods: {
+    async postDetail(e) {
+      const value = e;
+      const path = "http://127.0.0.1:5000/details";
+      const response = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify({
+          pedidoID: this.pedido_id,
+          productoID: value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      console.log("response: ", response);
+      console.log("data: ", data);
+      console.log(value);
+    },
   },
 };
 </script>
@@ -160,7 +205,6 @@ body {
   font-size: 22px;
   letter-spacing: 5px;
 }
-
 .pizzas {
   display: grid;
   position: relative;
@@ -195,7 +239,6 @@ body {
   -o-object-fit: contain;
   object-fit: contain;
 }
-
 .details {
   padding: 20px 10px;
   display: grid;
