@@ -33,7 +33,12 @@
               <td id="pedidos">{{ products[index].precio }}</td>
               <td id="pedidos">{{ detail.cantidad }}</td>
               <td>
-                <button class="delete-button">&cross;</button>
+                <button
+                  v-on:click="deleteDetail(detail.id)"
+                  class="delete-button"
+                >
+                  &cross;
+                </button>
               </td>
               <td></td>
             </tr>
@@ -59,6 +64,7 @@ export default {
       details: [],
       products: [],
       detail: {
+        id: "",
         pedido_id: "",
         producto_id: "",
         cantidad: "",
