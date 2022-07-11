@@ -22,3 +22,21 @@ Se concrete satisfactoriamente la compra del usuario
 
 ## Licencia
 Este proyecto cuenta con licencia conforma a los terminos de la licencia MIT
+
+## Infromación acerca de las librerias /frameworks utilizadas en el frontend backend y base de datos:
+- Axios
+- Router
+
+## API:
+- /login
+- /users
+- /cart
+- /details
+- /details/<detail_id>
+
+
+## ERRORES:
+- 404
+- 500
+- 403
+- 422
