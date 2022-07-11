@@ -16,7 +16,9 @@
             <h5 class="price">S/ 4.00</h5>
           </div>
           <div class="boton">
-            <button class="selec" value="1">Añadir al Carrito</button>
+            <button v-on:click="postDetail($event)" class="selec" value="1">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -28,7 +30,9 @@
             <h5 class="price">S/ 8.00</h5>
           </div>
           <div class="boton">
-            <button class="selec" value="2">Añadir al Carrito</button>
+            <button v-on:click="postDetail($event)" class="selec" value="2">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -41,7 +45,9 @@
             <h5 class="price">S/ 5.50</h5>
           </div>
           <div class="boton">
-            <button class="selec" value="3">Añadir al Carrito</button>
+            <button v-on:click="postDetail($event)" class="selec" value="3">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -54,7 +60,9 @@
             <h5 class="price">S/ 11.00</h5>
           </div>
           <div class="boton">
-            <button class="selec" value="4">Añadir al Carrito</button>
+            <button v-on:click="postDetail($event)" class="selec" value="4">
+              Añadir al Carrito
+            </button>
           </div>
         </div>
       </div>
@@ -65,9 +73,41 @@
 <script>
 import Navegacion from "../components/Navegacion.vue";
 export default {
-  name: "App",
+  name: "entradas",
+  data() {
+    return {
+      pedido_id: JSON.parse(localStorage.getItem("user-info"))["pedido_id"],
+    };
+  },
   components: {
     Navegacion,
+  },
+  mounted() {
+    let u = localStorage.getItem("user-info");
+    if (!u) {
+      this.$router.push({
+        name: "Ingresar",
+      });
+    }
+  },
+  methods: {
+    async postDetail(e) {
+      const value = e.target.value;
+      const path = "http://127.0.0.1:5000/details";
+      const response = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify({
+          pedidoID: this.pedido_id,
+          productoID: value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      console.log("response: ", response);
+      console.log("data: ", data);
+    },
   },
 };
 </script>
@@ -137,7 +177,6 @@ body {
   font-size: 22px;
   letter-spacing: 5px;
 }
-
 .entradas {
   display: grid;
   position: relative;
@@ -160,7 +199,6 @@ body {
   -o-object-fit: contain;
   object-fit: contain;
 }
-
 .details {
   padding: 20px 10px;
   display: grid;
