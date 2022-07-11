@@ -132,6 +132,15 @@ class DetallesPedido(db.Model):
             'cantidad': self.cantidad,
         }
     
+    def delete(self):
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
+        finally:
+            db.session.close()
+    
     def insert(self):
         try:
             db.session.add(self)
