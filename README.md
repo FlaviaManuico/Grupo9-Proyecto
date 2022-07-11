@@ -19,3 +19,6 @@ Nuestra misión es crear un servidor web de confianza donde el usuario puede com
 Ofrecer los productos de la pizzeria
 Todos los productos se conduzcan adecuadamente al carrito de compras
 Se concrete satisfactoriamente la compra del usuario
+
+## Licencia
+Este proyecto cuenta con licencia conforma a los terminos de la licencia MIT
