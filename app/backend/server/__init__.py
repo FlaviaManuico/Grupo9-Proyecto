@@ -165,6 +165,20 @@ def create_app(test_config=None):
             'success': True,
             'created': new_detai_id
         })
+    
+    @app.route('/details/<detail_id>',methods=['DELETE'])
+    def delete_detail(detail_id):
+
+        todo= DetallesPedido.query.filter(DetallesPedido.id==detail_id).one_or_none()
+        if todo is None:
+            abort(404)
+        
+        todo.delete()
+
+        return jsonify({
+            'success': True,
+            'deleted': detail_id,
+        })
 
 
     @app.errorhandler(404)
