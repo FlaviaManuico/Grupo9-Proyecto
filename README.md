@@ -24,9 +24,11 @@ Se concrete satisfactoriamente la compra del usuario
 Este proyecto cuenta con licencia conforma a los terminos de la licencia MIT
 
 ## Infromación acerca de las librerias /frameworks utilizadas en el frontend backend y base de datos:
-- flask
+- Datetime: librería que nos permite saber la fecha y hora, en la que el usuario realiza su pedido
+- Flask: Es un “micro” Framework escrito en Python y desarrollado para simplificar y hacer más fácil la creación de Aplicaciones Web bajo el patrón MVC.
+- flask_sqlalchemy: Un ORM que nos permite trabajar con las tablas de la base de datos como si estas fueran objetos.
+- Werkzeug.security: librería que nos ayudó a poder poner la contraseña del usuario en un estilo incógnito, para garantizar la seguridad del usuario.
 - flask_cors
-- werkzeug security
 - sass (en el CSS)
 - Fetch
 - Router
