@@ -1,5 +1,7 @@
 import unittest
 import json
+import random
+import string
 from server import create_app
 from models import setup_db, Usuario, Producto, Pedido, DetallesPedido
 
@@ -12,13 +14,13 @@ class TestUtecPizza(unittest.TestCase):
         setup_db(self.app, self.database_path)
 
         self.new_usuario = {
-            'username': 'new username',
+            'username': ''.join(random.SystemRandom().choice(string.ascii_letters)),
             'password': 'new password',
-            'nombre': 'new name',
-            'apellido': 'new lastname',
-            'email': 'new email',
-            'direccion': 'new adress',
-            'telefono': 987654321,
+            'name': ''.join(random.SystemRandom().choice(string.ascii_letters)),
+            'lastname': ''.join(random.SystemRandom().choice(string.ascii_letters)),
+            'email': ''.join(random.SystemRandom().choice(string.ascii_letters)),
+            'address': ''.join(random.SystemRandom().choice(string.ascii_letters)),
+            'phone': 987654321,
         }
     
     #------------------Test---------------------
