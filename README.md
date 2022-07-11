@@ -27,6 +27,7 @@ Este proyecto cuenta con licencia conforma a los terminos de la licencia MIT
 - flask
 - flask_cors
 - werkzeug security
+- sass (en el CSS)
 - Fetch
 - Router
 
