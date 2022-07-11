@@ -24,6 +24,9 @@ Se concrete satisfactoriamente la compra del usuario
 Este proyecto cuenta con licencia conforma a los terminos de la licencia MIT
 
 ## Infromación acerca de las librerias /frameworks utilizadas en el frontend backend y base de datos:
+- flask
+- flask_cors
+- werkzeug security
 - Fetch
 - Router
 
