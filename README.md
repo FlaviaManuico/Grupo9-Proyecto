@@ -44,3 +44,7 @@ Este proyecto cuenta con licencia conforma a los terminos de la licencia MIT
 - 500
 - 403
 - 422
+
+## Hosts:
+- http://127.0.0.1:5000
+- http://localhost:8080/
