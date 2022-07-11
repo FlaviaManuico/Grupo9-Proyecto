@@ -15,6 +15,7 @@
             <tr>
               <th>Producto</th>
               <th>Precio</th>
+              <th>Cantidad</th>
               <th>Eliminar</th>
             </tr>
           </thead>
@@ -27,9 +28,10 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td id="pedidos"></td>
-              <td></td>
+            <tr v-for="(detail, index) in details" :key="detail">
+              <td id="pedidos">{{ products[index].comida }}</td>
+              <td id="pedidos">{{ products[index].precio }}</td>
+              <td id="pedidos">{{ detail.cantidad }}</td>
               <td>
                 <button class="delete-button">&cross;</button>
               </td>
@@ -50,9 +52,52 @@
 <script>
 import Navegacion from "../components/Navegacion.vue";
 export default {
-  name: "App",
+  name: "pedidos",
+  data() {
+    return {
+      pedido_id: JSON.parse(localStorage.getItem("user-info"))["pedido_id"],
+      details: [],
+      products: [],
+      detail: {
+        pedido_id: "",
+        producto_id: "",
+        cantidad: "",
+      },
+    };
+  },
   components: {
     Navegacion,
+  },
+  mounted() {
+    let u = localStorage.getItem("user-info");
+    if (!u) {
+      this.$router.push({
+        name: "Ingresar",
+      });
+    }
+  },
+  created() {
+    this.postDetail();
+  },
+  methods: {
+    async postDetail() {
+      const path = "http://127.0.0.1:5000/cart";
+      const response = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify({
+          pedidoID: this.pedido_id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      this.details = data.detalles;
+      this.products = data.productos;
+      console.log("response: ", response);
+      console.log("data: ", this.details);
+      console.log("data: ", this.products);
+    },
   },
 };
 </script>
@@ -122,7 +167,6 @@ body {
   font-size: 22px;
   letter-spacing: 5px;
 }
-
 .pedidos {
   display: grid;
   position: relative;
