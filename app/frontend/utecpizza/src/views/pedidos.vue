@@ -98,6 +98,18 @@ export default {
       console.log("data: ", this.details);
       console.log("data: ", this.products);
     },
+    async deleteDetail(detailID) {
+      const path = "http://127.0.0.1:5000/details/" + detailID;
+      const response = await fetch(path, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      console.log("response: ", response);
+      console.log("data: ", data);
+    },
   },
 };
 </script>
