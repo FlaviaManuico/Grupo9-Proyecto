@@ -6,8 +6,7 @@ from flask import (
     request,
 )
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager,UserMixin, current_user, login_user, logout_user, login_required
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from models import setup_db, Usuario, Producto, Pedido, DetallesPedido
 
 def create_app(test_config=None):
@@ -93,24 +92,28 @@ def create_app(test_config=None):
             abort(403)
         else:
             if user.verify_password(password):
+                ped= Pedido(user_id=user.id)
+                ped_id= ped.insert()
                 return jsonify({
                     'success': True,
                     'profile': {
                         'usuario': username
-                    }
+                    },
+                    'pedido_id':ped_id
                 })
             else:
                 abort(403)
     
+
     @app.route('/users', methods = ['POST']) #registro de usuario - POST
     def insert_users():
         username = request.get_json()['username']
         password = request.get_json()['password']
-        nombre = request.get_json()['nombre'] 
-        apellido = request.get_json()['apellido']       
+        nombre = request.get_json()['name'] 
+        apellido = request.get_json()['lastname']       
         email = request.get_json()['email']
-        direccion = request.get_json()['direccion']
-        telefono = request.get_json()['telefono']
+        direccion = request.get_json()['address']
+        telefono = request.get_json()['phone']
 
         print(nombre)
 
@@ -135,6 +138,34 @@ def create_app(test_config=None):
             else: 
                 if user_base.username == username or email_base.email == email:
                     abort(403)
+
+    @app.route('/cart', methods=['POST'])
+    def fill_cart():
+        ped_id = request.get_json()['pedidoID']
+
+        select= DetallesPedido.query.filter(DetallesPedido.pedido_id == ped_id)
+        detalles= [det.format() for det in select]
+        productos= [prod.detalles0.format() for prod in select]
+
+        return jsonify({
+            'success':True,
+            'detalles': detalles,
+            'productos':productos,
+        })
+    
+    @app.route('/details', methods=['POST'])
+    def insert_details():
+        pedido_id = request.get_json()['pedidoID']
+        producto_id = request.get_json()['productoID']
+        
+        detail = DetallesPedido(pedido_id=pedido_id,producto_id=producto_id)
+        new_detai_id= detail.insert()
+
+        return jsonify({
+            'success': True,
+            'created': new_detai_id
+        })
+
 
     @app.errorhandler(404)
     def not_found(error):
