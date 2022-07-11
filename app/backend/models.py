@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager,UserMixin, current_user, login_user, logout_user, login_required
 
 database_name='pizza'
 database_path='postgresql://{}:@{}/{}'.format('postgres', 'localhost:5432', database_name)
@@ -81,6 +80,13 @@ class Producto(db.Model):
      precio = db.Column(db.Float(), nullable=False)
      detalles = db.relationship('DetallesPedido', backref='detalles0', lazy=True)
 
+     def format(self):
+        return{
+            'id': self.id,
+            'comida': self.comida,
+            'precio': self.precio,
+        }
+
      def __repr__(self):
         return f'Producto: id={self.id} comida={self.comida}, precio={self.precio}'
 
@@ -90,7 +96,24 @@ class Pedido(db.Model):
      user_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
      fechaPedido = db.Column(db.DateTime, default=datetime.now())
      detalle = db.relationship('DetallesPedido', backref='detalles', lazy=True)
+    
+     def format(self):
+        return{
+            'id': self.id,
+            'user_id': self.user_id,
+            'fechaPedido': self.fechaPedido,
+        }
 
+     def insert(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+            return self.id
+        except:
+            db.session.rollback()
+        finally:
+            db.session.close()
+     
      def __repr__(self):
          return f'Pedido: id={self.id} fechaPedido={self.fechaPedido}'
 
@@ -99,7 +122,25 @@ class DetallesPedido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pedido_id = db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=False)
     producto_id = db.Column(db.Integer, db.ForeignKey('productos.id'), nullable=False)
-    cantidad= db.Column(db.Integer, nullable=False)
+    cantidad= db.Column(db.Integer, default=1)
+
+    def format(self):
+        return{
+            'id': self.id,
+            'pedido_id': self.pedido_id,
+            'producto_id': self.producto_id,
+            'cantidad': self.cantidad,
+        }
+    
+    def insert(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+            return self.id
+        except:
+            db.session.rollback()
+        finally:
+            db.session.close()
 
     def __repr__(self):
         return f'Carrito: id={self.id}, cantidad={self.cantidad}'
