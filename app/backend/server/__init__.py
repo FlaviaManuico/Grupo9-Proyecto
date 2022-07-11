@@ -47,13 +47,6 @@ def create_app(test_config=None):
     PMm = Producto(comida='Pizza Mozarella Mediana', precio=15.90)
     PMp = Producto(comida='Pizza Mozarella Personal', precio=9.00)
 
-    # Lasagnas
-    lVegetariana = Producto(comida='Lasagna Vegetariana', precio=22.90)
-    lCarne = Producto(comida='Lasagna de Carne', precio=20.90)
-    lHawaiana = Producto(comida='Lasagna Hawaiana', precio=22.90)
-    lQueso = Producto(comida='Lasagna de 4 Quesos', precio=24.90)
-    lChamp = Producto(comida='Lasagna de Champiñones', precio=25.90)
-
     # Bebidas
     CPersonal = Producto(comida='Coca Cola Personal', precio=2.50)
     InP = Producto(comida='Inca Kola Personal', precio=2.50)
@@ -83,11 +76,6 @@ def create_app(test_config=None):
                         PMg,
                         PMm,
                         PMp,
-                        lVegetariana,
-                        lCarne,
-                        lHawaiana,
-                        lQueso,
-                        lChamp,
                         CPersonal,
                         InP,
                         FaP,
