@@ -37,6 +37,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "ingresar" */ "../views/ingresar.vue"),
   },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () =>
+      import(
+        /* webpackChunkName: "error404" */
+        "../components/errores/error404.vue"
+      ),
+  },
 ];
 
 const router = createRouter({
