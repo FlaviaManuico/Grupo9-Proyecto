@@ -118,11 +118,11 @@ def create_app(test_config=None):
     def insert_users():
         username = request.get_json()['username']
         password = request.get_json()['password']
-        nombre = request.get_json()['name'] 
-        apellido = request.get_json()['lastname']       
+        nombre = request.get_json()['nombre'] 
+        apellido = request.get_json()['apellido']       
         email = request.get_json()['email']
-        direccion = request.get_json()['adress']
-        telefono = request.get_json()['phone']
+        direccion = request.get_json()['direccion']
+        telefono = request.get_json()['telefono']
 
         print(nombre)
 
