@@ -35,7 +35,7 @@
         placeholder="Ingrese su correo"
       />
       <input
-        v-model="adress"
+        v-model="address"
         class="controls"
         type="text"
         placeholder="Ingrese su direccion"
@@ -66,7 +66,7 @@ export default {
       name: "",
       lastname: "",
       email: "",
-      adress: "",
+      address: "",
       phone: "",
       error: "",
     };
@@ -82,7 +82,7 @@ export default {
           name: this.name,
           lastname: this.lastname,
           email: this.email,
-          adress: this.adress,
+          address: this.address,
           phone: this.phone,
         }),
         headers: {
